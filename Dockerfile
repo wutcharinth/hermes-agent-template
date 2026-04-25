@@ -31,6 +31,7 @@ RUN mkdir -p /data/.hermes
 
 COPY server.py /app/server.py
 COPY templates/ /app/templates/
+COPY skills/ /app/skills/
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 

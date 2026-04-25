@@ -10,9 +10,26 @@ mkdir -p /data/.hermes/cron /data/.hermes/sessions /data/.hermes/logs \
          /data/.hermes/hooks /data/.hermes/image_cache /data/.hermes/audio_cache \
          /data/.hermes/workspace
 
-if [ ! -f /data/.hermes/config.yaml ] && [ -f /opt/hermes-agent/cli-config.yaml.example ]; then
-  cp /opt/hermes-agent/cli-config.yaml.example /data/.hermes/config.yaml
+if [ ! -f /data/.hermes/config.yaml ]; then
+  cat > /data/.hermes/config.yaml <<'EOF'
+model:
+  default: "google/gemini-2.5-flash"
+  provider: "auto"
+
+terminal:
+  backend: "local"
+  timeout: 120
+  cwd: "/tmp"
+
+agent:
+  max_iterations: 100
+
+data_dir: "/data/.hermes"
+EOF
 fi
+
+# Seed skills (always overwrite so updates deploy cleanly)
+cp /app/skills/*.md /data/.hermes/skills/ 2>/dev/null || true
 
 [ ! -f /data/.hermes/.env ] && touch /data/.hermes/.env
 
