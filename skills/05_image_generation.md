@@ -3,41 +3,26 @@
 ## When to use
 Any request to create, generate, or design images, illustrations, diagrams, social media visuals, thumbnails, or creative artwork.
 
-## Tool: FAL.ai — ALWAYS use direct Python API call, NOT the built-in image_generate tool
+## Tool: FAL.ai — ALWAYS use the terminal command below, NEVER use the built-in image_generate tool
 
-The built-in `image_generate` tool ignores model selection. Instead, call FAL directly via Python terminal:
+The built-in `image_generate` tool cannot select models. Use this terminal command instead:
 
-### Standard image (FLUX dev — fast, good quality)
-```python
-import fal_client, os, json
-result = fal_client.run(
-    "fal-ai/flux/dev",
-    arguments={"prompt": "YOUR PROMPT HERE", "image_size": "landscape_16_9"}
-)
-print(json.dumps(result))
+### GPT Image 2 — DEFAULT for all image requests
+```
+python3 /usr/local/bin/fal_generate.py fal-ai/gpt-image-1 "YOUR PROMPT HERE"
 ```
 
-### GPT Image 2 (best quality, best text rendering — use by default)
-```python
-import fal_client, os, json
-result = fal_client.run(
-    "fal-ai/gpt-image-1",
-    arguments={"prompt": "YOUR PROMPT HERE", "image_size": "1536x1024"}
-)
-print(json.dumps(result))
+### FLUX dev — fast photorealistic
+```
+python3 /usr/local/bin/fal_generate.py fal-ai/flux/dev "YOUR PROMPT HERE"
 ```
 
-### Video generation
-```python
-import fal_client, json
-result = fal_client.run(
-    "fal-ai/kling-video/v1.6/standard/text-to-video",
-    arguments={"prompt": "YOUR PROMPT HERE", "duration": "5"}
-)
-print(json.dumps(result))
+### Video clip
+```
+python3 /usr/local/bin/fal_generate.py fal-ai/kling-video/v1.6/standard/text-to-video "YOUR PROMPT HERE"
 ```
 
-**Always run the Python code in terminal, get the image URL from result, then send the URL or download and send the file.**
+**The command prints `SAVED:/tmp/fal_output_xxx.png` — send that file to the user via Telegram.**
 
 Model reference:
 | Model | FAL ID | Best for |

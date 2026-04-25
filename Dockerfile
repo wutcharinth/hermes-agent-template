@@ -32,6 +32,8 @@ RUN mkdir -p /data/.hermes
 COPY server.py /app/server.py
 COPY templates/ /app/templates/
 COPY skills/ /app/skills/
+COPY fal_generate.py /usr/local/bin/fal_generate.py
+RUN chmod +x /usr/local/bin/fal_generate.py
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
