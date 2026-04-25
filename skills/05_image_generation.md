@@ -4,7 +4,19 @@
 Any request to create, generate, or design images, illustrations, diagrams, social media visuals, thumbnails, or creative artwork.
 
 ## Tool: FAL.ai
-Use the FAL image generation tool. Default to high-quality models.
+Use the FAL image generation tool with these EXACT model IDs:
+
+| Use Case | FAL Model ID | Notes |
+|---|---|---|
+| **Default / photorealistic** | `fal-ai/flux/dev` | Best general purpose |
+| **OpenAI GPT Image 2** | `fal-ai/gpt-image-1` | Highest quality, best text rendering, use when user asks for "OpenAI image" or "GPT Image" |
+| **Fast/cheap** | `fal-ai/flux/schnell` | Quick iterations |
+| **Professional design** | `fal-ai/recraft-v3` | Logos, icons, UI |
+| **Consistent style** | `fal-ai/flux-pro` | Commercial quality |
+| **Video** | `fal-ai/kling-video/v1.6/standard/text-to-video` | Text to video |
+| **Image to video** | `fal-ai/kling-video/v1.6/standard/image-to-video` | Animate an image |
+
+**Default to `fal-ai/gpt-image-1` unless Oui specifies otherwise — it produces the best results.**
 
 ## Prompt Engineering for Best Results
 1. Always write detailed, specific prompts
