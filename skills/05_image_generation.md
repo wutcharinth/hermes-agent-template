@@ -3,20 +3,50 @@
 ## When to use
 Any request to create, generate, or design images, illustrations, diagrams, social media visuals, thumbnails, or creative artwork.
 
-## Tool: FAL.ai
-Use the FAL image generation tool with these EXACT model IDs:
+## Tool: FAL.ai — ALWAYS use direct Python API call, NOT the built-in image_generate tool
 
-| Use Case | FAL Model ID | Notes |
+The built-in `image_generate` tool ignores model selection. Instead, call FAL directly via Python terminal:
+
+### Standard image (FLUX dev — fast, good quality)
+```python
+import fal_client, os, json
+result = fal_client.run(
+    "fal-ai/flux/dev",
+    arguments={"prompt": "YOUR PROMPT HERE", "image_size": "landscape_16_9"}
+)
+print(json.dumps(result))
+```
+
+### GPT Image 2 (best quality, best text rendering — use by default)
+```python
+import fal_client, os, json
+result = fal_client.run(
+    "fal-ai/gpt-image-1",
+    arguments={"prompt": "YOUR PROMPT HERE", "image_size": "1536x1024"}
+)
+print(json.dumps(result))
+```
+
+### Video generation
+```python
+import fal_client, json
+result = fal_client.run(
+    "fal-ai/kling-video/v1.6/standard/text-to-video",
+    arguments={"prompt": "YOUR PROMPT HERE", "duration": "5"}
+)
+print(json.dumps(result))
+```
+
+**Always run the Python code in terminal, get the image URL from result, then send the URL or download and send the file.**
+
+Model reference:
+| Model | FAL ID | Best for |
 |---|---|---|
-| **Default / photorealistic** | `fal-ai/flux/dev` | Best general purpose |
-| **OpenAI GPT Image 2** | `fal-ai/gpt-image-1` | Highest quality, best text rendering, use when user asks for "OpenAI image" or "GPT Image" |
-| **Fast/cheap** | `fal-ai/flux/schnell` | Quick iterations |
-| **Professional design** | `fal-ai/recraft-v3` | Logos, icons, UI |
-| **Consistent style** | `fal-ai/flux-pro` | Commercial quality |
-| **Video** | `fal-ai/kling-video/v1.6/standard/text-to-video` | Text to video |
-| **Image to video** | `fal-ai/kling-video/v1.6/standard/image-to-video` | Animate an image |
-
-**Default to `fal-ai/gpt-image-1` unless Oui specifies otherwise — it produces the best results.**
+| GPT Image 2 | `fal-ai/gpt-image-1` | Data slides, text, professional |
+| FLUX dev | `fal-ai/flux/dev` | Photorealistic, general |
+| FLUX schnell | `fal-ai/flux/schnell` | Fast drafts |
+| Recraft V3 | `fal-ai/recraft-v3` | Logos, design, icons |
+| Kling video | `fal-ai/kling-video/v1.6/standard/text-to-video` | Video clips |
 
 ## Prompt Engineering for Best Results
 1. Always write detailed, specific prompts
