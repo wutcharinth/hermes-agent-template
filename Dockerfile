@@ -27,6 +27,11 @@ RUN git clone --depth 1 https://github.com/NousResearch/hermes-agent.git /opt/he
 COPY requirements.txt /app/requirements.txt
 RUN uv pip install --system --no-cache -r /app/requirements.txt
 
+# Install Playwright + its bundled Chromium for advanced browser automation
+RUN uv pip install --system --no-cache playwright && \
+    playwright install chromium && \
+    playwright install-deps chromium
+
 RUN mkdir -p /data/.hermes
 
 COPY server.py /app/server.py
